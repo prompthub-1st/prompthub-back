@@ -13,17 +13,24 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        {
 
             HttpSession session = req.getSession(false);
 
-            if(session != null) {
+            if (session != null) {
                 session.invalidate();
             }
 
-            System.out.println("[Logout] Completed Logout");
+            resp.setContentType("application/json; charset=UTF-8");
 
-            resp.getWriter().write("LOGOUT_SUCCESS");
+            resp.getWriter().write(
+                    "{"
+                            + "\"success\":true,"
+                            + "\"data\":null,"
+                            + "\"message\":\"로그아웃 성공\""
+                            + "}"
+            );
         }
     }
 }

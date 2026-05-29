@@ -52,13 +52,30 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("[LOGIN] Id is not a possible : " + id);
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 resp.getWriter().write("USER_NOT_FOUND");
+                resp.setContentType("application/json; charset=UTF-8");
+
+                resp.getWriter().write(
+                        "{"
+                                + "\"success\":false,"
+                                + "\"data\":null,"
+                                + "\"message\":\"존재하지 않는 사용자입니다.\""
+                                + "}"
+                );
                 return;
             }
 
             if(!user.getPasswordHash().equals(password)){
                 System.out.println("[LOGIN] password failed : " + id);
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                resp.getWriter().write("INVALID_PASSWORD");
+                resp.setContentType("application/json; charset=UTF-8");
+
+                resp.getWriter().write(
+                        "{"
+                                + "\"success\":false,"
+                                + "\"data\":null,"
+                                + "\"message\":\"비밀번호가 일치하지 않습니다.\""
+                                + "}"
+                );
                 return;
             }
 
@@ -67,12 +84,34 @@ public class LoginServlet extends HttpServlet {
 
             System.out.println("[LOGIN] Success - Session Saved : " + user.getLoginId());
 
-            resp.getWriter().write("LOGIN_SUCCESS");
+            resp.setContentType("application/json; charset=UTF-8");
+            resp.getWriter().write(String.format(
+                    "{"
+                            + "\"success\":true,"
+                            + "\"data\":{"
+                            + "\"userId\":%d,"
+                            + "\"loginId\":\"%s\","
+                            + "\"nickname\":\"%s\""
+                            + "},"
+                            + "\"message\":\"로그인 성공\""
+                            + "}",
+                    user.getUserId(),
+                    user.getLoginId(),
+                    user.getNickname()
+            ));
 
         }catch (Exception e){
             e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("SERVER_ERROR");
+            resp.setContentType("application/json; charset=UTF-8");
+
+            resp.getWriter().write(
+                    "{"
+                            + "\"success\":false,"
+                            + "\"data\":null,"
+                            + "\"message\":\"서버 오류가 발생했습니다.\""
+                            + "}"
+            );
         }
 
 
