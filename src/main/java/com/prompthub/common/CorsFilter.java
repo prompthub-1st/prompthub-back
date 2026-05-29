@@ -20,7 +20,7 @@ public class CorsFilter implements Filter {
 
         res.setHeader(
                 "Access-Control-Allow-Origin",
-                "http://localhost:5173"
+                "http://localhost:3000"
         );
 
         res.setHeader(
