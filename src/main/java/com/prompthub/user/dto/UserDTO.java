@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class UserDTO {
 
     private Long userId;
-    private String id;
+    private String loginId;
     private String passwordHash;
     private String nickname;
     private LocalDateTime createdAt;
@@ -14,9 +14,9 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Long userId, String id, String passwordHash, String nickname, LocalDateTime createdAt, LocalDateTime deletedAt) {
+    public UserDTO(Long userId, String loginId, String passwordHash, String nickname, LocalDateTime createdAt, LocalDateTime deletedAt) {
         this.userId = userId;
-        this.id = id;
+        this.loginId = loginId;
         this.passwordHash = passwordHash;
         this.nickname = nickname;
         this.createdAt = createdAt;
@@ -31,12 +31,12 @@ public class UserDTO {
         this.userId = userId;
     }
 
-    public String getId() {
-        return id;
+    public String getLoginId() {
+        return loginId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
     public String getPasswordHash() {
@@ -75,7 +75,7 @@ public class UserDTO {
     public String toString() {
         return "UserDTO{" +
                 "userId=" + userId +
-                ", id='" + id + '\'' +
+                ", loginId='" + loginId + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", createdAt=" + createdAt +

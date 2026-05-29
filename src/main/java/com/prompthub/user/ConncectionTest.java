@@ -9,7 +9,7 @@ public class ConncectionTest {
         Connection con = JDBCTemplate.getConnection();
 
         if(con != null) {
-            System.out.println("DB 연결 성공");
+            System.out.println("Connected prompthub_db");
         }
 
 

@@ -12,9 +12,9 @@ public class UserDAO {
         ResultSet rset = null;
         UserDTO user = null;
 
-        String query = "SELECT user_id, id, password_hash, nickname, created_at, deleted_at "
+        String query = "SELECT user_id, login_id, password_hash, nickname, created_at, deleted_at "
                 + "FROM users "
-                + "WHERE id = ? "
+                + "WHERE login_id = ? "
                 +"AND deleted_at IS NULL ";
 
         try {
@@ -26,7 +26,7 @@ public class UserDAO {
                 user = new UserDTO();
 
                 user.setUserId(rset.getLong("user_id"));
-                user.setId(rset.getString("id"));
+                user.setLoginId(rset.getString("login_id"));
                 user.setPasswordHash(rset.getString("password_hash"));
                 user.setNickname(rset.getString("nickname"));
                 user.setCreatedAt(rset.getTimestamp("created_at").toLocalDateTime());
