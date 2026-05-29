@@ -22,6 +22,8 @@ public class LogoutServlet extends HttpServlet {
                 session.invalidate();
             }
 
+            System.out.println("[LOGOUT] Completed Logout");
+
             resp.setContentType("application/json; charset=UTF-8");
 
             resp.getWriter().write(
