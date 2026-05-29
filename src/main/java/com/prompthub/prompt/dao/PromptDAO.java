@@ -223,7 +223,8 @@ public class PromptDAO {
                 "title = ?, " +
                 "description = ?, " +
                 "content = ? " +
-                "WHERE prompt_id = ?";
+                "WHERE prompt_id = ? " +
+                "AND deleted_at IS NULL";
 
         try {
 
