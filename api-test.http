@@ -28,3 +28,17 @@ POST http://localhost:8080/api/prompts/delete
 Content-Type: application/x-www-form-urlencoded
 
 promptId=13
+
+
+
+### 로그인(Mock)
+POST http://localhost:8080//auth/login
+Content-Type: application/x-www-form-urlencoded
+
+id=user1&password=hashed_pw_1
+
+### 내 정보
+GET http://localhost:8080//auth/me
+
+### 로그아웃(Mock)
+POST http://localhost:8080//auth/logout

@@ -21,19 +21,13 @@ public class PromptListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<PromptDTO> promptList =
-                promptService.selectAllPrompts();
+        List<PromptDTO> promptList = promptService.selectAllPrompts();
 
-        resp.setContentType(
-                "application/json;charset=UTF-8"
-        );
+        resp.setContentType("application/json;charset=UTF-8");
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        objectMapper.writeValue(
-                resp.getWriter(),
-                promptList
-        );
+        objectMapper.writeValue(resp.getWriter(), promptList);
 
 
     }
