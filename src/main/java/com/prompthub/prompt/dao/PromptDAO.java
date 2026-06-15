@@ -56,10 +56,14 @@ public class PromptDAO {
                 new ArrayList<>();
 
         String sql =
-                "SELECT * " +
-                "FROM prompts " +
-                "WHERE deleted_at IS NULL " +
-                "ORDER BY created_at DESC";
+                "SELECT p.*, " +
+                "c.name AS category_name, " +
+                "u.nickname AS user_name " +
+                "FROM prompts p " +
+                "JOIN categories c ON p.category_id = c.category_id " +
+                "JOIN users u ON p.user_id = u.user_id " +
+                "WHERE p.deleted_at IS NULL " +
+                "ORDER BY p.created_at DESC";
 
         try {
             pstmt = con.prepareStatement(sql);
@@ -109,6 +113,14 @@ public class PromptDAO {
                         rset.getTimestamp("deleted_at")
                 );
 
+                dto.setUserName(
+                        rset.getString("user_name")
+                );
+
+                dto.setCategoryName(
+                        rset.getString("category_name")
+                );
+
                 promptList.add(dto);
             }
         } catch (SQLException e) {
@@ -136,10 +148,16 @@ public class PromptDAO {
         PromptDTO dto = null;
 
         String sql =
-                "SELECT * " +
-                "FROM prompts " +
-                "WHERE prompt_id = ? " +
-                "AND deleted_at IS NULL";
+                "SELECT p.*, " +
+                        "c.name AS category_name, " +
+                        "u.nickname AS user_name " +
+                        "FROM prompts p " +
+                        "JOIN categories c " +
+                        "ON p.category_id = c.category_id " +
+                        "JOIN users u " +
+                        "ON p.user_id = u.user_id " +
+                        "WHERE p.prompt_id = ? " +
+                        "AND p.deleted_at IS NULL";
 
         try {
 
@@ -191,6 +209,14 @@ public class PromptDAO {
                 dto.setDeletedAt(
                         rset.getTimestamp("deleted_at")
                 );
+
+                dto.setUserName(
+                        rset.getString("user_name")
+                );
+
+                dto.setCategoryName(
+                        rset.getString("category_name")
+                );
             }
 
 
@@ -223,7 +249,8 @@ public class PromptDAO {
                 "title = ?, " +
                 "description = ?, " +
                 "content = ? " +
-                "WHERE prompt_id = ?";
+                "WHERE prompt_id = ? " +
+                "AND deleted_at IS NULL";
 
         try {
 

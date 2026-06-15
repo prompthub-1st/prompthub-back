@@ -19,6 +19,9 @@ public class PromptDTO {
     private Timestamp updatedAt;
     private Timestamp deletedAt;
 
+    private String userName;
+    private String categoryName;
+
     public PromptDTO() {
     }
 
@@ -115,6 +118,14 @@ public class PromptDTO {
         this.deletedAt = deletedAt;
     }
 
+    public String getUserName() { return userName; }
+
+    public void setUserName(String userName) { this.userName = userName; }
+
+    public String getCategoryName() { return categoryName; }
+
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+
     @Override
     public String toString() {
         return "PromptDTO{" +
@@ -128,6 +139,8 @@ public class PromptDTO {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +
+                ", userName='" + userName + '\'' +
+                ", categoryName='" + categoryName + '\'' +
                 '}';
     }
 }
