@@ -24,13 +24,16 @@ public class PromptUpdateServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession(false);
-        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
-        if (loginUser == null) {
+        if (session == null || session.getAttribute("loginUser") == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write("{\"message\":\"LOGIN_REQUIRED\"}");
             return;
         }
+
+        UserDTO loginUser =
+                (UserDTO) session.getAttribute("loginUser");
 
         Long promptId = Long.parseLong(req.getParameter("promptId"));
         Long categoryId = Long.parseLong(req.getParameter("categoryId"));
@@ -39,9 +42,17 @@ public class PromptUpdateServlet extends HttpServlet {
         String content = req.getParameter("content");
 
 
-        PromptDTO origin = promptService.selectPromptById(promptId);
+        PromptDTO origin =
+                promptService.selectPromptById(promptId);
 
-        if(!origin.getUserId().equals(loginUser.getUserId())) {
+        if (origin == null) {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            resp.setContentType("application/json;charset=UTF-8");
+            resp.getWriter().write("{\"message\":\"PROMPT_NOT_FOUND\"}");
+            return;
+        }
+
+        if (!origin.getUserId().equals(loginUser.getUserId())) {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
             resp.getWriter().write("{\"message\":\"NO_PERMISSION\"}");
             return;

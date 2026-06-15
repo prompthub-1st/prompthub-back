@@ -24,14 +24,16 @@ public class PromptCreateServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession(false);
-        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
-        if (loginUser == null) {
+        if (session == null || session.getAttribute("loginUser") == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write("{\"success\":false,\"message\":\"LOGIN_REQUIRED\"}");
             return;
         }
+
+        UserDTO loginUser =
+                (UserDTO) session.getAttribute("loginUser");
 
 
         String title = req.getParameter("title");
